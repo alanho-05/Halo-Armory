@@ -9,3 +9,8 @@
 --      ('Learn to code', false),
 --      ('Build projects', false),
 --      ('Get a job', false);
+
+INSERT into "products"
+  ("name", "price", "description", "imageURL", "type", "faction")
+  VALUES
+    ('Assult Rifle', )
