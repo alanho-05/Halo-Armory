@@ -22,8 +22,65 @@ app.use(express.static(reactStaticDir));
 app.use(express.static(uploadsStaticDir));
 app.use(express.json());
 
+app.get('/api/products/weapons', async (req, res, next) => {
+  try {
+    const sql = `
+      select "productId",
+             "name",
+             "price",
+             "imageUrl"
+        from "products"
+       where "type" = 'weapon'
+       order by "name"
+    `;
+    const result = await db.query(sql);
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+app.get('/api/products/vehicles', async (req, res, next) => {
+  try {
+    const sql = `
+      select "productId",
+             "name",
+             "price",
+             "imageUrl"
+        from "products"
+       where "type" = 'vehicle'
+       order by "name"
+    `;
+    const result = await db.query(sql);
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+app.get('/api/products/throwables', async (req, res, next) => {
+  try {
+    const sql = `
+      select "productId",
+             "name",
+             "price",
+             "imageUrl"
+        from "products"
+       where "type" = 'throwable'
+       order by "name"
+    `;
+    const result = await db.query(sql);
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello, World!' });
+  res.json({ message: 'Hello, Project!' });
 });
 
 /**
