@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import logo from './logo.svg';
 import './App.css';
-import NavBar from './NavBar';
+import NavBar from './components/NavBar';
+import Catalog from './pages/Catalog';
+import NotFound from './pages/NotFound';
+import Home from './pages/Home';
+import Weapons from './pages/Weapons';
+import Vehicles from './pages/Vehicles';
+import Throwables from './pages/Throwables';
 
 function App() {
   const [serverData, setServerData] = useState('');
@@ -22,18 +27,15 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<NavBar />}></Route>
+      <Route path="/" element={<NavBar />}>
+        <Route index element={<Home />} />
+        <Route path="weapons" element={<Weapons />} />
+        <Route path="vehicles" element={<Vehicles />} />
+        <Route path="Throwables" element={<Throwables />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
     </Routes>
   );
 }
 
 export default App;
-
-{
-  /* <div className="App">
-  <header className="App-header">
-    <img src={logo} className="App-logo" alt="logo" />
-    <h1>{serverData}</h1>
-  </header>
-</div>; */
-}
