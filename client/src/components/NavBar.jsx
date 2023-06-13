@@ -34,7 +34,7 @@ export default function NavBar() {
             </div>
             <div className="offcanvas-body">
               <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li className="nav-item">
+                <li className="nav-item" data-bs-dismiss="offcanvas">
                   <div className="nav-link">
                     <Link
                       className="white-font"
@@ -44,7 +44,7 @@ export default function NavBar() {
                     </Link>
                   </div>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item" data-bs-dismiss="offcanvas">
                   <div className="nav-link">
                     <Link
                       className="white-font"
@@ -64,7 +64,7 @@ export default function NavBar() {
                     Products
                   </a>
                   <ul className="dropdown-menu dropdown-menu-dark">
-                    <li>
+                    <li data-bs-dismiss="offcanvas">
                       <div className="nav-link dropdown-padding">
                         <Link
                           className="white-font"
@@ -74,7 +74,7 @@ export default function NavBar() {
                         </Link>
                       </div>
                     </li>
-                    <li>
+                    <li data-bs-dismiss="offcanvas">
                       <div className="nav-link dropdown-padding">
                         <Link
                           className="white-font"
@@ -84,7 +84,7 @@ export default function NavBar() {
                         </Link>
                       </div>
                     </li>
-                    <li>
+                    <li data-bs-dismiss="offcanvas">
                       <div className="nav-link dropdown-padding">
                         <Link
                           className="white-font"
