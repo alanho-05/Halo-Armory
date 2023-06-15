@@ -1,8 +1,12 @@
+import { useContext } from 'react';
+import AppContext from '../components/AppContext';
+import { Link, Outlet } from 'react-router-dom';
 import './NavBar.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Link, Outlet } from 'react-router-dom';
 
 export default function NavBar() {
+  const { user, handleSignOut } = useContext(AppContext);
+
   return (
     <>
       <nav className="navbar navbar-dark bg-nav">
@@ -14,11 +18,11 @@ export default function NavBar() {
             data-bs-target="#offcanvasDarkNavbar"
             aria-controls="offcanvasDarkNavbar"
             aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon" />
+            <span className="navbar-toggler-icon" />
           </button>
           <div
             className="offcanvas offcanvas-start text-bg-dark"
-            tabindex="-1"
+            tabIndex={-1}
             id="offcanvasDarkNavbar"
             aria-labelledby="offcanvasDarkNavbarLabel">
             <div className="offcanvas-header">
@@ -46,12 +50,19 @@ export default function NavBar() {
                 </li>
                 <li className="nav-item" data-bs-dismiss="offcanvas">
                   <div className="nav-link">
-                    <Link
-                      className="white-font"
-                      style={{ textDecoration: 'none' }}
-                      to="/signIn">
-                      Sign In
-                    </Link>
+                    {user && (
+                      <button className="btn btn-dark" onClick={handleSignOut}>
+                        Sign out
+                      </button>
+                    )}
+                    {!user && (
+                      <Link
+                        className="white-font"
+                        style={{ textDecoration: 'none' }}
+                        to="/sign-in">
+                        Sign In
+                      </Link>
+                    )}
                   </div>
                 </li>
                 <li className="nav-item dropdown">
@@ -99,11 +110,14 @@ export default function NavBar() {
               </ul>
             </div>
           </div>
-          <a className="navbar-brand" href="#">
+          <Link
+            className="white-font navbar-brand"
+            style={{ textDecoration: 'none' }}
+            to="/">
             Logo
-          </a>
+          </Link>
           <i className="bi bi-bag white-font fs-4 position-relative">
-            <span class="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-danger fs-65">
+            <span className="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-danger fs-65">
               0
             </span>
           </i>

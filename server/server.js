@@ -83,7 +83,7 @@ app.get('/api/products/throwables', async (req, res, next) => {
   }
 });
 
-app.post('api/auth/sign-up', async (req, res, next) => {
+app.post('/api/auth/sign-up', async (req, res, next) => {
   try {
     const { username, password } = req.body;
     if (!username || !password) {
@@ -104,7 +104,7 @@ app.post('api/auth/sign-up', async (req, res, next) => {
   }
 });
 
-app.post('api/auth/sign-in', async (req, res, next) => {
+app.post('/api/auth/sign-in', async (req, res, next) => {
   try {
     const { username, password } = req.body;
     if (!username || !password) {
