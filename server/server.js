@@ -83,6 +83,72 @@ app.get('/api/products/throwables', async (req, res, next) => {
   }
 });
 
+app.get('/api/products/:productId', async (req, res, next) => {
+  try {
+    const productId = Number(req.params.productId);
+    if (!productId) {
+      throw new ClientError(400, 'productId must be a positive integer');
+    }
+    const sql = `
+      select "productId",
+             "name",
+             "price",
+             "imageUrl",
+             "description"
+        from "products"
+       where "productId" = $1
+    `;
+    const params = [productId];
+    const result = await db.query(sql, params);
+    if (!result.rows[0]) {
+      throw new ClientError(
+        404,
+        `cannot find product with productId ${productId}`
+      );
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.get('/api/cart/:userId', async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const sql = `
+      select *
+        from "products"
+        join "shoppingCartItem" using ("shoppingCartItemid")
+        join "shoppingCart" using ("shoppingCartId")
+        join "user" using ("userId")
+       where userId = $1
+    `;
+    const params = [userId];
+    const result = await db.query(sql, params);
+    console.log(result.rows);
+    res.json(result.rows);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post('/api/cart/addtocart', async (req, res, next) => {
+  try {
+    const { productId, quantity, shoppingCartId } = req.body;
+    const sql = `
+      insert into "shoppingCartItem" ("productId", "quantity", "shoppingCartId")
+      values ($1, $2, $3)
+      returning *
+    `;
+    const params = [productId, quantity, shoppingCartId];
+    const result = await db.query(sql, params);
+    const [cart] = result.rows;
+    res.status(201).json(cart);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.post('/api/auth/sign-up', async (req, res, next) => {
   try {
     const { username, password } = req.body;
@@ -98,7 +164,15 @@ app.post('/api/auth/sign-up', async (req, res, next) => {
     const params = [username, hashedPassword];
     const result = await db.query(sql, params);
     const [user] = result.rows;
-    res.status(201).json(user);
+    const cartSql = `
+      insert into "shoppingCart" ("userId")
+      values ($1)
+      returning *
+    `;
+    const cartParams = [user.userId];
+    const cartResult = await db.query(cartSql, cartParams);
+    const [cart] = cartResult.rows;
+    res.status(201).json(user, cart);
   } catch (err) {
     next(err);
   }

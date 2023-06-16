@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchProducts } from '../lib';
+import { fetchCategory } from '../lib';
 import Catalog from '../components/Catalog';
 
 export default function Throwables() {
@@ -10,7 +10,7 @@ export default function Throwables() {
   useEffect(() => {
     async function loadProducts() {
       try {
-        const products = await fetchProducts('throwables');
+        const products = await fetchCategory('throwables');
         setProducts(products);
       } catch (err) {
         setError(err);
@@ -21,12 +21,17 @@ export default function Throwables() {
     setIsLoading(true);
     loadProducts();
   }, []);
-
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error Loading Products: {error.message}</div>;
   return (
     <div className="card-deck">
-      <Catalog products={products} />
+      <div className="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        {products?.map((product) => (
+          <div key={product.productId} className="col">
+            <Catalog product={product} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -27,7 +27,7 @@ export default function NavBar() {
             aria-labelledby="offcanvasDarkNavbarLabel">
             <div className="offcanvas-header">
               <h3 className="offcanvas-title" id="offcanvasDarkNavbarLabel">
-                Logo
+                Halo Armory
               </h3>
               <button
                 type="button"
@@ -114,7 +114,7 @@ export default function NavBar() {
             className="white-font navbar-brand"
             style={{ textDecoration: 'none' }}
             to="/">
-            Logo
+            Halo Armory
           </Link>
           <i className="bi bi-bag white-font fs-4 position-relative">
             <span className="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-danger fs-65">

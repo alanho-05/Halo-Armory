@@ -8,6 +8,7 @@ import Weapons from './pages/Weapons';
 import Vehicles from './pages/Vehicles';
 import Throwables from './pages/Throwables';
 import Auth from './pages/AuthPage';
+import ProductDetails from './pages/ProductDetails';
 import './App.css';
 
 const tokenKey = 'react-context-jwt';
@@ -52,6 +53,7 @@ function App() {
           <Route path="weapons" element={<Weapons />} />
           <Route path="vehicles" element={<Vehicles />} />
           <Route path="throwables" element={<Throwables />} />
+          <Route path="details/:productId" element={<ProductDetails />} />
           <Route path="sign-in" element={<Auth action="sign-in" />} />
           <Route path="sign-up" element={<Auth action="sign-up" />} />
           <Route path="*" element={<NotFound />} />

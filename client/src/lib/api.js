@@ -1,5 +1,11 @@
-export async function fetchProducts(category) {
+export async function fetchCategory(category) {
   const res = await fetch(`/api/products/${category}`);
+  if (!res.ok) throw new Error(`fetch Error ${res.status}`);
+  return await res.json();
+}
+
+export async function fetchProduct(productId) {
+  const res = await fetch(`/api/products/${productId}`);
   if (!res.ok) throw new Error(`fetch Error ${res.status}`);
   return await res.json();
 }
