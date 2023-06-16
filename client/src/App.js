@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import AppContext from './components/AppContext';
 import NavBar from './components/NavBar';
 import NotFound from './pages/NotFound';
@@ -9,6 +9,7 @@ import Vehicles from './pages/Vehicles';
 import Throwables from './pages/Throwables';
 import Auth from './pages/AuthPage';
 import ProductDetails from './pages/ProductDetails';
+import Cart from './pages/Cart';
 import './App.css';
 
 const tokenKey = 'react-context-jwt';
@@ -17,6 +18,7 @@ function App() {
   const [user, setUser] = useState();
   const [token, setToken] = useState();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // If user logged in previously on this browser, authorize them
@@ -38,6 +40,7 @@ function App() {
   }
 
   function handleSignOut() {
+    navigate('/');
     localStorage.removeItem(tokenKey);
     setUser(undefined);
     setToken(undefined);
@@ -56,6 +59,7 @@ function App() {
           <Route path="details/:productId" element={<ProductDetails />} />
           <Route path="sign-in" element={<Auth action="sign-in" />} />
           <Route path="sign-up" element={<Auth action="sign-up" />} />
+          <Route path="cart" element={<Cart />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

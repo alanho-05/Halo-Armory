@@ -10,6 +10,12 @@ export async function fetchProduct(productId) {
   return await res.json();
 }
 
+export async function fetchCart(userId) {
+  const res = await fetch(`/api/cart/${userId}`);
+  if (!res.ok) throw new Error(`fetch Error ${res.status}`);
+  return await res.json();
+}
+
 export async function signIn(username, password) {
   return await signUpOrIn('sign-in', username, password);
 }

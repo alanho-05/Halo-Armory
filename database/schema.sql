@@ -56,11 +56,11 @@ CREATE TABLE "public"."orders" (
 
 
 CREATE TABLE "public"."shoppingCartItem" (
-	"shoppingCartItemid" serial NOT NULL,
+	"shoppingCartItemId" serial NOT NULL,
 	"productId" integer NOT NULL,
 	"shoppingCartId" integer NOT NULL,
 	"quantity" integer NOT NULL,
-	CONSTRAINT "shoppingCartItem_pk" PRIMARY KEY ("shoppingCartItemid")
+	CONSTRAINT "shoppingCartItem_pk" PRIMARY KEY ("shoppingCartItemId")
 ) WITH (
   OIDS=FALSE
 );

@@ -116,11 +116,13 @@ export default function NavBar() {
             to="/">
             Halo Armory
           </Link>
-          <i className="bi bi-bag white-font fs-4 position-relative">
-            <span className="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-danger fs-65">
-              0
-            </span>
-          </i>
+          <Link to="/cart">
+            <i className="bi bi-bag white-font fs-4 position-relative">
+              <span className="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-danger fs-65">
+                0
+              </span>
+            </i>
+          </Link>
         </div>
       </nav>
       <Outlet />

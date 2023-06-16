@@ -118,14 +118,13 @@ app.get('/api/cart/:userId', async (req, res, next) => {
     const sql = `
       select *
         from "products"
-        join "shoppingCartItem" using ("shoppingCartItemid")
+        join "shoppingCartItem" using ("productId")
         join "shoppingCart" using ("shoppingCartId")
-        join "user" using ("userId")
-       where userId = $1
+        join "users" using ("userId")
+       where "users"."userId" = $1
     `;
     const params = [userId];
     const result = await db.query(sql, params);
-    console.log(result.rows);
     res.json(result.rows);
   } catch (err) {
     next(err);
@@ -170,9 +169,8 @@ app.post('/api/auth/sign-up', async (req, res, next) => {
       returning *
     `;
     const cartParams = [user.userId];
-    const cartResult = await db.query(cartSql, cartParams);
-    const [cart] = cartResult.rows;
-    res.status(201).json(user, cart);
+    await db.query(cartSql, cartParams);
+    res.status(201).json(user);
   } catch (err) {
     next(err);
   }
