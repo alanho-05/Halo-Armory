@@ -40,10 +40,10 @@ function App() {
   }
 
   function handleSignOut() {
-    navigate('/');
     localStorage.removeItem(tokenKey);
     setUser(undefined);
     setToken(undefined);
+    navigate('/');
   }
 
   const contextValue = { user, token, handleSignIn, handleSignOut };

@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { fetchProduct, toDollars } from '../lib';
+import { useEffect, useState, useContext } from 'react';
+import AppContext from '../components/AppContext';
+import { fetchProduct, toDollars, addToCart } from '../lib';
 import './ProductDetails.css';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -8,6 +9,7 @@ export default function ProductDetails() {
   const [product, setProduct] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
+  const { user } = useContext(AppContext);
   const navigate = useNavigate();
   function prevPage() {
     navigate(-1);
@@ -65,11 +67,27 @@ export default function ProductDetails() {
           </div>
           <div className="row">
             <div className="col">
-              <button className="btn btn-primary">Add to Cart</button>
+              <button className="btn btn-primary" onClick={handleAddToCart}>
+                Add to Cart
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
+
+  async function handleAddToCart() {
+    if (!user) {
+      navigate('/sign-in');
+      return;
+    }
+    try {
+      const quantity = 1;
+      const shoppingCartId = user.shoppingCartId;
+      await addToCart(productId, quantity, shoppingCartId);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }

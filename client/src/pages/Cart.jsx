@@ -9,9 +9,12 @@ export default function Cart() {
   const [error, setError] = useState();
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
+  function prevPage() {
+    navigate(-1);
+  }
 
   useEffect(() => {
-    if (!user) navigate('/sign-in');
+    !user && navigate('/sign-in');
     async function loadCart(userId) {
       try {
         const cart = await fetchCart(userId);
@@ -36,7 +39,7 @@ export default function Cart() {
             </p>
             <div className="card mb-4">
               {cart?.map((product) => (
-                <UserCart product={product} />
+                <UserCart key={product.productId} product={product} />
               ))}
             </div>
           </div>
@@ -51,7 +54,10 @@ export default function Cart() {
             </div>
           </div>
           <div className="d-flex justify-content-end">
-            <button type="button" className="btn btn-light btn-lg me-2">
+            <button
+              type="button"
+              className="btn btn-light btn-lg me-2"
+              onClick={prevPage}>
               Continue shopping
             </button>
             <button type="button" className="btn btn-primary btn-lg">

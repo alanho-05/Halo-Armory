@@ -184,8 +184,10 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
     }
     const sql = `
       select "userId",
-             "hashedPassword"
+             "hashedPassword",
+             "shoppingCartId"
         from "users"
+        join "shoppingCart" using ("userId")
        where "username" = $1
     `;
     const params = [username];
@@ -195,12 +197,12 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
       throw new ClientError(401, 'invalid login');
     }
 
-    const { userId, hashedPassword } = user;
+    const { userId, hashedPassword, shoppingCartId } = user;
 
     if (!(await argon2.verify(hashedPassword, password))) {
       throw new ClientError(401, 'invalid login');
     }
-    const payload = { userId, username };
+    const payload = { userId, username, shoppingCartId };
     const token = jwt.sign(payload, process.env.TOKEN_SECRET);
     res.json({ token, user: payload });
   } catch (err) {

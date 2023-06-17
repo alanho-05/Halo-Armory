@@ -1,10 +1,9 @@
 import { toDollars } from '../lib';
 
 export default function UserCart({ product }) {
-  const { name, quantity, price, imageUrl, productId } = product;
-  console.log(productId);
+  const { name, quantity, price, imageUrl } = product;
   return (
-    <div key={productId} className="card-body p-4">
+    <div className="card-body p-4">
       <div className="row align-items-center">
         <div className="col-md-2">
           <img src={imageUrl} className="img-fluid" alt={name} />
