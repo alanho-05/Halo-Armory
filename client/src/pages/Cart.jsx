@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import AppContext from '../components/AppContext';
 import { fetchCart, toDollars } from '../lib';
 import { useNavigate } from 'react-router-dom';
-import UserCart from '../components/UserCart';
+import CartItem from '../components/CartItem';
 
 export default function Cart() {
   const [cart, setCart] = useState();
@@ -39,7 +39,7 @@ export default function Cart() {
             </p>
             <div className="card mb-4">
               {cart?.map((product) => (
-                <UserCart key={product.productId} product={product} />
+                <CartItem key={product.productId} product={product} />
               ))}
             </div>
           </div>

@@ -148,6 +148,23 @@ app.post('/api/cart/addtocart', async (req, res, next) => {
   }
 });
 
+app.post('/api/cart/removeitem', async (req, res, next) => {
+  try {
+    const { productId, shoppingCartId } = req.body;
+    const sql = `
+      delete
+        from "shoppingCartItem"
+       where "productId" = $1
+         and "shoppingCartId" = $2
+    `;
+    const params = [productId, shoppingCartId];
+    await db.query(sql, params);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.post('/api/auth/sign-up', async (req, res, next) => {
   try {
     const { username, password } = req.body;
