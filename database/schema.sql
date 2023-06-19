@@ -36,6 +36,7 @@ CREATE TABLE "public"."products" (
 	"price" integer NOT NULL,
 	"description" TEXT NOT NULL,
 	"imageUrl" TEXT NOT NULL,
+  "stripeId" TEXT UNIQUE,
 	CONSTRAINT "products_pk" PRIMARY KEY ("productId")
 ) WITH (
   OIDS=FALSE
