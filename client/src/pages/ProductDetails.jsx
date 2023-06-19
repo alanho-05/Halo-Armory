@@ -11,9 +11,6 @@ export default function ProductDetails() {
   const [error, setError] = useState();
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
-  function prevPage() {
-    navigate(-1);
-  }
 
   useEffect(() => {
     async function loadProduct(productId) {
@@ -46,7 +43,9 @@ export default function ProductDetails() {
         <div className="card-body">
           <div className="row">
             <div className="col">
-              <button className="btn text-secondary" onClick={prevPage}>
+              <button
+                className="btn text-secondary"
+                onClick={() => navigate(-1)}>
                 &lt;Back
               </button>
             </div>

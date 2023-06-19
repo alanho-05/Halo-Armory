@@ -9,7 +9,9 @@ export default function NavBar() {
 
   return (
     <>
-      <nav className="navbar navbar-dark bg-nav">
+      <nav
+        style={{ position: 'sticky', top: '0', zIndex: '1' }}
+        className="navbar navbar-dark bg-nav">
         <div className="container-fluid">
           <button
             className="navbar-toggler"

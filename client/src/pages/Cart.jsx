@@ -9,9 +9,6 @@ export default function Cart() {
   const [error, setError] = useState();
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
-  function prevPage() {
-    navigate(-1);
-  }
 
   useEffect(() => {
     !user && navigate('/sign-in');
@@ -39,7 +36,11 @@ export default function Cart() {
             </p>
             <div className="card mb-4">
               {cart?.map((product) => (
-                <CartItem key={product.productId} product={product} />
+                <CartItem
+                  key={product.productId}
+                  product={product}
+                  setCart={setCart}
+                />
               ))}
             </div>
           </div>
@@ -57,7 +58,7 @@ export default function Cart() {
             <button
               type="button"
               className="btn btn-light btn-lg me-2"
-              onClick={prevPage}>
+              onClick={() => navigate(-1)}>
               Continue shopping
             </button>
             <button type="button" className="btn btn-primary btn-lg">
