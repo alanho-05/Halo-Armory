@@ -7,6 +7,7 @@ import { authMiddleware } from './lib/authorization-middleware.js';
 import pg from 'pg';
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
+import Stripe from 'stripe';
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -15,6 +16,7 @@ const db = new pg.Pool({
   },
 });
 
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const app = express();
 
 // Create paths for static directories
@@ -160,6 +162,28 @@ app.post('/api/cart/removeitem', async (req, res, next) => {
     const params = [productId, shoppingCartId];
     await db.query(sql, params);
     res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post('/api/checkout', async (req, res, next) => {
+  try {
+    const { cart } = req.body;
+    const lineItems = [];
+    cart.forEach((item) => {
+      lineItems.push({
+        price: item.stripeId,
+        quantity: item.quantity,
+      });
+    });
+    const session = await stripe.checkout.sessions.create({
+      line_items: lineItems,
+      mode: 'payment',
+      success_url: 'http://localhost:3000?success=true',
+      cancel_url: 'http://localhost:3000?canceled=true',
+    });
+    res.json({ url: session.url });
   } catch (err) {
     next(err);
   }

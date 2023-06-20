@@ -61,7 +61,10 @@ export default function Cart() {
               onClick={() => navigate(-1)}>
               Continue shopping
             </button>
-            <button type="button" className="btn btn-primary btn-lg">
+            <button
+              type="button"
+              className="btn btn-primary btn-lg"
+              onClick={handleCheckout}>
               Check Out
             </button>
           </div>
@@ -69,6 +72,25 @@ export default function Cart() {
       </div>
     </section>
   );
+
+  async function handleCheckout() {
+    try {
+      const req = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cart }),
+      };
+      const res = await fetch('/api/checkout', req);
+      if (!res.ok) throw new Error(`fetch Error ${res.status}`);
+      const body = await res.json();
+      window.location.href = body.url;
+      res.sendStatus(202);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }
 
 function getCartQuantity(cart) {

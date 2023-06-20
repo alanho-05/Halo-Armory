@@ -22,18 +22,6 @@ export async function addToCart(productId, quantity, shoppingCartId) {
   return await res.json();
 }
 
-export async function removeItem(productId, shoppingCartId) {
-  const req = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ productId, shoppingCartId }),
-  };
-  const res = await fetch('/api/cart/removeitem', req);
-  return await res.json();
-}
-
 export async function fetchCart(userId) {
   const res = await fetch(`/api/cart/${userId}`);
   if (!res.ok) throw new Error(`fetch Error ${res.status}`);
