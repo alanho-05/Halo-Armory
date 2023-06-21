@@ -10,12 +10,14 @@ import Throwables from './pages/Throwables';
 import Auth from './pages/AuthPage';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
+import Success from './pages/Success';
 import './App.css';
 
 const tokenKey = 'react-context-jwt';
 
 function App() {
   const [user, setUser] = useState();
+  const [cart, setCart] = useState();
   const [token, setToken] = useState();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
   const navigate = useNavigate();
@@ -60,6 +62,7 @@ function App() {
           <Route path="sign-in" element={<Auth action="sign-in" />} />
           <Route path="sign-up" element={<Auth action="sign-up" />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="success" element={<Success />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

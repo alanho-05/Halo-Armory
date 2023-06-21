@@ -6,26 +6,21 @@ export default function Catalog({ product }) {
   const { productId, imageUrl, name, price } = product;
   return (
     <Link
-      className="col-lg-4 col-md-6 mb-4 catalog-products position-relative"
+      className="col-lg-4 col-md-6 mb-4 catalog-products position-relative zoom"
       to={`/details/${productId}`}>
-      <a href="#!">
-        <div className="mask" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
-          <div className="d-flex justify-content-start align-tems-start h-100">
-            <h5>
-              <span className="badge bg-light pt-2 ms-3 mt-3 text-dark">
-                {toDollars(price)}
-              </span>
-            </h5>
-          </div>
+      <div className="mask">
+        <div className="d-flex justify-content-start align-tems-start h-100">
+          <h5>
+            <span className="badge bg-light pt-2 ms-3 mt-3 text-dark">
+              {toDollars(price)}
+            </span>
+          </h5>
         </div>
-        <div className="hover-overlay">
-          <div
-            className="mask"
-            style={{ backgroundColor: 'rgba(253, 253, 253, 0.15)' }}
-          />
-        </div>
-      </a>
-      <div className="bg-image hover-zoom rounded">
+      </div>
+      <div className="hover-overlay">
+        <div className="mask" />
+      </div>
+      <div className="bg-image rounded">
         <img src={imageUrl} alt={name} className="w-100" />
       </div>
     </Link>
