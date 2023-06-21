@@ -24,49 +24,62 @@ export default function Cart() {
   }, [user, navigate]);
 
   return (
-    <section className="vh-100" style={{ backgroundColor: '#DDE6ED' }}>
-      <div className="container h-100">
-        <div className="row d-flex justify-content-center align-items-center h-100">
-          <div className="col">
-            <p>
-              <span className="h2">Shopping Cart </span>
-              <span className="h4">
-                ({getCartQuantity(cart)} item in your cart)
-              </span>
-            </p>
+    <section className="h-100 gradient-custom">
+      <div className="container py-5">
+        <div className="row d-flex justify-content-center my-4">
+          <div className="col-md-8">
             <div className="card mb-4">
-              {cart?.map((product) => (
-                <CartItem
-                  key={product.productId}
-                  product={product}
-                  setCart={setCart}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="card mb-5">
-            <div className="card-body p-4">
-              <div className="float-end">
-                <p className="mb-0 me-5 d-flex align-items-center">
-                  <span className="small text-muted me-2">Order total:</span>{' '}
-                  <span className="lead fw-normal">{getCartTotal(cart)}</span>
-                </p>
+              <div className="card-header py-3">
+                <h5 className="mb-0">Cart - {getCartQuantity(cart)} items</h5>
+              </div>
+              <div className="card-body">
+                {cart?.map((product, index) => (
+                  <>
+                    <CartItem
+                      key={product.productId}
+                      product={product}
+                      setCart={setCart}
+                    />
+                    {index + 1 === cart.length ? undefined : (
+                      <hr class="my-4" />
+                    )}
+                  </>
+                ))}
               </div>
             </div>
           </div>
-          <div className="d-flex justify-content-end">
-            <button
-              type="button"
-              className="btn btn-light btn-lg me-2"
-              onClick={() => navigate(-1)}>
-              Continue shopping
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary btn-lg"
-              onClick={handleCheckout}>
-              Check Out
-            </button>
+          <div className="col-md-4">
+            <div className="card mb-4">
+              <div className="card-header py-3">
+                <h5 className="mb-0">Summary</h5>
+              </div>
+              <div className="card-body">
+                <ul className="list-group list-group-flush">
+                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                    Subtotal
+                    <span>{getCartTotal(cart)}</span>
+                  </li>
+                  <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+                    Shipping
+                    <span>Free</span>
+                  </li>
+                  <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                    <div>
+                      <strong>Total amount</strong>
+                    </div>
+                    <span>
+                      <strong>{getCartTotal(cart)}</strong>
+                    </span>
+                  </li>
+                </ul>
+                <button
+                  type="button"
+                  className="btn btn-primary btn-lg btn-block"
+                  onClick={handleCheckout}>
+                  Go to checkout
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

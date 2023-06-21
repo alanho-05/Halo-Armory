@@ -12,7 +12,7 @@ export default function NavBar() {
       <nav
         style={{ position: 'sticky', top: '0', zIndex: '1' }}
         className="navbar navbar-dark bg-nav">
-        <div className="container-fluid">
+        <div className="container">
           <button
             className="navbar-toggler"
             type="button"

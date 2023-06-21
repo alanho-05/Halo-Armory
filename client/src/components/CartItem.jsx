@@ -8,41 +8,56 @@ export default function CartItem({ product, setCart }) {
   const shoppingCartId = user.shoppingCartId;
 
   return (
-    <div className="card-body p-4">
-      <div className="row align-items-center">
-        <div className="col-md-2">
+    <div className="row">
+      <div className="col-lg-3 col-md-12 md-4 md-lg-0 d-flex align-items-center justify-content-center">
+        <div
+          className="bg-image hover-overlay hover-zoom ripple rounded"
+          data-mdb-ripple-color="light">
           <img src={imageUrl} className="img-fluid" alt={name} />
         </div>
-        <div className="col-md-2 d-flex justify-content-center">
-          <div>
-            <p className="small text-muted mb-4 pb-2">Name</p>
-            <p className="lead fw-normal mb-0">{name}</p>
+      </div>
+      <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
+        <p>
+          <strong>{name}</strong>
+        </p>
+        <p>Price: {toDollars(price)}</p>
+        <button
+          type="button"
+          className="btn btn-danger btn-sm me-1 mb-2"
+          onClick={handleRemoveItem}>
+          <i className="fas fa-trash" />
+        </button>
+      </div>
+      <div className="col-lg-4 col-md-6 mb-4 mb-lg-0 d-flex align-items-center">
+        <div className="d-flex mb-4" style={{ maxWidth: '300px' }}>
+          <button
+            className="btn btn-primary px-3 me-2"
+            style={{ margin: '1rem 0' }}>
+            <i className="fas fa-minus" />
+          </button>
+          <div className="form-outline">
+            <label className="form-label">
+              Quantitiy
+              <input
+                min="0"
+                name="quantitiy"
+                value={quantity}
+                type="number"
+                className="form-control"
+              />
+            </label>
           </div>
-        </div>
-        <div className="col-md-2 d-flex justify-content-center">
-          <div>
-            <p className="small text-muted mb-4 pb-2">Quantity</p>
-            <p className="lead fw-normal mb-0">{quantity}</p>
-          </div>
-        </div>
-        <div className="col-md-2 d-flex justify-content-center">
-          <div>
-            <p className="small text-muted mb-4 pb-2">Price</p>
-            <p className="lead fw-normal mb-0">{toDollars(price)}</p>
-          </div>
-        </div>
-        <div className="col-md-2 d-flex justify-content-center">
-          <div>
-            <button className="btn btn-danger" onClick={removeItem}>
-              Remove
-            </button>
-          </div>
+          <button
+            className="btn btn-primary px-3 ms-2"
+            style={{ margin: '1rem 0' }}>
+            <i className="fas fa-plus" />
+          </button>
         </div>
       </div>
     </div>
   );
 
-  async function removeItem() {
+  async function handleRemoveItem() {
     try {
       const req = {
         method: 'POST',

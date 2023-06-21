@@ -180,14 +180,20 @@ app.post('/api/checkout', async (req, res, next) => {
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
       mode: 'payment',
-      success_url: 'http://localhost:3000?success=true',
-      cancel_url: 'http://localhost:3000?canceled=true',
+      success_url: 'http://localhost:3000/success',
+      cancel_url: 'http://localhost:3000/cancel',
     });
     res.json({ url: session.url });
   } catch (err) {
     next(err);
   }
 });
+
+// app.post('/api/checkout/success', async (req, res, next) => {
+//   try {
+
+//   }
+// });
 
 app.post('/api/auth/sign-up', async (req, res, next) => {
   try {
