@@ -189,12 +189,6 @@ app.post('/api/checkout', async (req, res, next) => {
   }
 });
 
-// app.post('/api/checkout/success', async (req, res, next) => {
-//   try {
-
-//   }
-// });
-
 app.post('/api/auth/sign-up', async (req, res, next) => {
   try {
     const { username, password } = req.body;

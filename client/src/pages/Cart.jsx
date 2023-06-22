@@ -6,7 +6,6 @@ import CartItem from '../components/CartItem';
 
 export default function Cart() {
   const [cart, setCart] = useState();
-  const [error, setError] = useState();
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
 
@@ -17,7 +16,7 @@ export default function Cart() {
         const cart = await fetchCart(userId);
         setCart(cart);
       } catch (err) {
-        setError(err);
+        console.error(err);
       }
     }
     user && loadCart(user.userId);
@@ -99,7 +98,6 @@ export default function Cart() {
       if (!res.ok) throw new Error(`fetch Error ${res.status}`);
       const body = await res.json();
       window.location.href = body.url;
-      res.sendStatus(202);
     } catch (err) {
       console.error(err);
     }

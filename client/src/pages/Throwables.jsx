@@ -31,11 +31,11 @@ export default function Throwables() {
           alt="Throwables"
         />
       </div>
-      <div className="row row-cols-1 row-cols-md-3 g-4">
+      <div className="row row-cols-1 row-cols-md-2 g-4">
         {products?.map((product) => (
           <div
             key={product.productId}
-            className="col-lg-4 mb-3 d-flex align-items-stretch">
+            className="col-lg-4 mb-3 d-flex align-items-stretch justify-content-center">
             <Catalog product={product} />
           </div>
         ))}

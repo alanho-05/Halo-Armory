@@ -16,7 +16,7 @@ export default function Catalog({ product }) {
             </h5>
           </div>
         </div>
-        <img src={imageUrl} className="card-img-top" alt={name} />
+        <img src={imageUrl} className="card-img-top img-contain" alt={name} />
       </div>
     </Link>
   );

@@ -8,12 +8,12 @@ export default function AuthPage({ action }) {
   const { user, handleSignIn } = useContext(AppContext);
 
   useEffect(() => {
-    if (user) navigate('/');
+    if (user) navigate('/weapons');
   }, [user, navigate]);
 
   const welcomeMessage =
     action === 'sign-in'
-      ? 'Please sign in to add to your cart'
+      ? 'Please sign in to start shopping'
       : 'Register now Spartan!';
   return (
     <div className="row pt-5 align-items-center">
