@@ -10,7 +10,7 @@ export default function Success() {
   });
 
   return (
-    <div className="mt-5 d-flex justify-content-center">
+    <div className="mt-5 d-flex justify-content-center container">
       <div className="py-4 px-5 bg-white bg-opacity-75 rounded">
         <div className="mb-4 text-center">
           <svg
@@ -25,7 +25,7 @@ export default function Success() {
         </div>
         <div className="text-center">
           <h1>Thank You!</h1>
-          <p>Your order will be delivered shortly spartan!</p>
+          <p>Your order has been received, ordnance drop incoming!</p>
           <Link to="/" className="btn btn-primary">
             Back Home
           </Link>

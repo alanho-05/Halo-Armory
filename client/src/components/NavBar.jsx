@@ -43,33 +43,16 @@ export default function NavBar() {
                 <li className="nav-item" data-bs-dismiss="offcanvas">
                   <div className="nav-link">
                     <Link
-                      className="white-font"
+                      className="text-white"
                       style={{ textDecoration: 'none' }}
                       to="/">
                       Home
                     </Link>
                   </div>
                 </li>
-                <li className="nav-item" data-bs-dismiss="offcanvas">
-                  <div className="nav-link">
-                    {user && (
-                      <button className="btn btn-dark" onClick={handleSignOut}>
-                        Sign out
-                      </button>
-                    )}
-                    {!user && (
-                      <Link
-                        className="white-font"
-                        style={{ textDecoration: 'none' }}
-                        to="/sign-in">
-                        Sign In
-                      </Link>
-                    )}
-                  </div>
-                </li>
                 <li className="nav-item dropdown">
                   <a
-                    className="nav-link dropdown-toggle white-font"
+                    className="nav-link dropdown-toggle text-white"
                     href="#"
                     role="button"
                     data-bs-toggle="dropdown"
@@ -80,7 +63,7 @@ export default function NavBar() {
                     <li data-bs-dismiss="offcanvas">
                       <div className="nav-link dropdown-padding">
                         <Link
-                          className="white-font"
+                          className="text-white"
                           style={{ textDecoration: 'none' }}
                           to="/weapons">
                           Weapons
@@ -90,7 +73,7 @@ export default function NavBar() {
                     <li data-bs-dismiss="offcanvas">
                       <div className="nav-link dropdown-padding">
                         <Link
-                          className="white-font"
+                          className="text-white"
                           style={{ textDecoration: 'none' }}
                           to="/vehicles">
                           Vehicles
@@ -100,7 +83,7 @@ export default function NavBar() {
                     <li data-bs-dismiss="offcanvas">
                       <div className="nav-link dropdown-padding">
                         <Link
-                          className="white-font"
+                          className="text-white"
                           style={{ textDecoration: 'none' }}
                           to="/throwables">
                           Throwables
@@ -109,17 +92,37 @@ export default function NavBar() {
                     </li>
                   </ul>
                 </li>
+                <li className="nav-item" data-bs-dismiss="offcanvas">
+                  <div className="nav-link">
+                    {user && (
+                      <a
+                        className="text-white"
+                        style={{ textDecoration: 'none' }}
+                        onClick={handleSignOut}>
+                        Sign out
+                      </a>
+                    )}
+                    {!user && (
+                      <Link
+                        className="text-white"
+                        style={{ textDecoration: 'none' }}
+                        to="/sign-in">
+                        Sign In
+                      </Link>
+                    )}
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
           <Link
-            className="white-font navbar-brand"
+            className="text-white navbar-brand"
             style={{ textDecoration: 'none' }}
             to="/">
             Halo Armory
           </Link>
           <Link to="/cart">
-            <i className="bi bi-bag white-font fs-4 position-relative">
+            <i className="bi bi-bag text-white fs-4 position-relative">
               <span className="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-danger fs-65">
                 0
               </span>

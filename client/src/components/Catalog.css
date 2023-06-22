@@ -18,22 +18,12 @@
   background-attachment: fixed;
 }
 
-.catalog-products {
-  width: 15rem;
-  height: 15rem;
+.product {
+  height: 20rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  background-color: rgba(255, 255, 255, 0.35);
-  border-radius: 5%;
-}
-
-.catalog-info {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  color: black;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.55);
 }
 
 .zoom img {

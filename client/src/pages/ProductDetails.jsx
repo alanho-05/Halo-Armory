@@ -38,9 +38,9 @@ export default function ProductDetails() {
   if (!product) return null;
   const { name, imageUrl, price, description } = product;
   return (
-    <div className="container">
-      <div className="card shadow-sm">
-        <div className="card-body">
+    <div className="container mt-4">
+      <div className="card shadow-sm pb-3 opacity-75">
+        <div className="card-body mx-3">
           <div className="row">
             <div className="col">
               <button
