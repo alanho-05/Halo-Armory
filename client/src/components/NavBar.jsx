@@ -1,11 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import AppContext from '../components/AppContext';
+import CartContext from './CartContext';
 import { Link, Outlet } from 'react-router-dom';
 import './NavBar.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default function NavBar() {
   const { user, handleSignOut } = useContext(AppContext);
+  const { cart } = useContext(CartContext);
 
   return (
     <>
@@ -124,7 +126,7 @@ export default function NavBar() {
           <Link to="/cart">
             <i className="bi bi-bag text-white fs-4 position-relative">
               <span className="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-danger fs-65">
-                0
+                {getCartQuantity(cart)}
               </span>
             </i>
           </Link>
@@ -133,4 +135,12 @@ export default function NavBar() {
       <Outlet />
     </>
   );
+
+  function getCartQuantity(cart) {
+    let quantity = 0;
+    cart?.forEach((item) => {
+      quantity += item.quantity;
+    });
+    return quantity;
+  }
 }

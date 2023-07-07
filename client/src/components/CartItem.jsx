@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import AppContext from './AppContext';
 import { toDollars } from '../lib';
 
-export default function CartItem({ product, setCart }) {
+export default function CartItem({ product }) {
   const { name, quantity, price, imageUrl, productId } = product;
   const { user } = useContext(AppContext);
   const shoppingCartId = user.shoppingCartId;
@@ -68,9 +68,9 @@ export default function CartItem({ product, setCart }) {
       };
       const res = await fetch('/api/cart/removeitem', req);
       if (!res.ok) throw new Error(`fetch Error ${res.status}`);
-      setCart((prev) =>
-        prev.filter((cartedItem) => cartedItem.productId !== productId)
-      );
+      // setCart((prev) =>
+      //   prev.filter((cartedItem) => cartedItem.productId !== productId)
+      // );
     } catch (err) {
       console.error(err);
     }

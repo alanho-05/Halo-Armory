@@ -1,25 +1,27 @@
 import { useContext, useEffect, useState } from 'react';
 import AppContext from '../components/AppContext';
+import CartContext from '../components/CartContext';
 import { fetchCart, toDollars } from '../lib';
 import { useNavigate } from 'react-router-dom';
 import CartItem from '../components/CartItem';
 
 export default function Cart() {
-  const [cart, setCart] = useState();
+  // const [cart, setCart] = useState();
+  const { cart } = useContext(CartContext);
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     !user && navigate('/sign-in');
-    async function loadCart(userId) {
-      try {
-        const cart = await fetchCart(userId);
-        setCart(cart);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    user && loadCart(user.userId);
+    // async function loadCart(userId) {
+    //   try {
+    //     const cart = await fetchCart(userId);
+    //     setCart(cart);
+    //   } catch (err) {
+    //     console.error(err);
+    //   }
+    // }
+    // user && loadCart(user.userId);
   }, [user, navigate]);
 
   return (
@@ -37,10 +39,10 @@ export default function Cart() {
                     <CartItem
                       key={product.productId}
                       product={product}
-                      setCart={setCart}
+                      // setCart={setCart}
                     />
                     {index + 1 === cart.length ? undefined : (
-                      <hr class="my-4" />
+                      <hr className="my-4" />
                     )}
                   </>
                 ))}

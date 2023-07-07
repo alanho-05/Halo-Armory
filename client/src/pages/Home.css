@@ -1,0 +1,9 @@
+header {
+  background-color: rgb(185, 185, 185);
+  background-image: url('https://wpassets.halowaypoint.com/wp-content/2022/08/Playlist_Social_TeamDoubles_1920x1080.jpg');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  padding-top: 350px;
+  padding-bottom: 50px;
+}

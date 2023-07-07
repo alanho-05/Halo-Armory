@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { fetchCart } from './lib';
 import AppContext from './components/AppContext';
+import CartContext from './components/CartContext';
+import Home from './pages/Home';
 import NavBar from './components/NavBar';
 import NotFound from './pages/NotFound';
 import Weapons from './pages/Weapons';
@@ -17,6 +20,7 @@ const tokenKey = 'react-context-jwt';
 function App() {
   const [user, setUser] = useState();
   const [token, setToken] = useState();
+  const [cart, setCart] = useState();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
   const navigate = useNavigate();
 
@@ -30,6 +34,18 @@ function App() {
     }
     setIsAuthorizing(false);
   }, []);
+
+  useEffect(() => {
+    async function loadCart(userId) {
+      try {
+        const cart = await fetchCart(userId);
+        setCart(cart);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    user && loadCart(user.userId);
+  }, [user, cart]);
 
   if (isAuthorizing) return null;
 
@@ -47,23 +63,26 @@ function App() {
   }
 
   const contextValue = { user, token, handleSignIn, handleSignOut };
+  const cartContext = { cart };
 
   return (
     <AppContext.Provider value={contextValue}>
-      <Routes>
-        <Route path="/" element={<NavBar />}>
-          <Route index element={<Auth action="sign-in" />} />
-          <Route path="sign-in" element={<Auth action="sign-in" />} />
-          <Route path="weapons" element={<Weapons />} />
-          <Route path="vehicles" element={<Vehicles />} />
-          <Route path="throwables" element={<Throwables />} />
-          <Route path="details/:productId" element={<ProductDetails />} />
-          <Route path="sign-up" element={<Auth action="sign-up" />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="success" element={<Success />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+      <CartContext.Provider value={cartContext}>
+        <Routes>
+          <Route path="/" element={<NavBar />}>
+            <Route index element={<Home />} />
+            <Route path="weapons" element={<Weapons />} />
+            <Route path="vehicles" element={<Vehicles />} />
+            <Route path="throwables" element={<Throwables />} />
+            <Route path="details/:productId" element={<ProductDetails />} />
+            <Route path="sign-in" element={<Auth action="sign-in" />} />
+            <Route path="sign-up" element={<Auth action="sign-up" />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="success" element={<Success />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </CartContext.Provider>
     </AppContext.Provider>
   );
 }
