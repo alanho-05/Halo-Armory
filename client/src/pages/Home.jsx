@@ -9,10 +9,25 @@ export default function Home() {
         <p class="col-md-8 lead">Your one stop shop for all your halo needs</p>
       </header>
       <div className="container">
-        <div className="row">
-          <div className="col-md-4 col-12">Weapons</div>
-          <div className="col-md-4 col-12">Vehicles</div>
-          <div className="col-md-4 col-12">Throwables</div>
+        <div className="row justify-content-between">
+          <Link
+            className="col-md-4 col-12 weapon-bg"
+            to="Weapons"
+            style={{ textDecoration: 'none' }}>
+            Weapons
+          </Link>
+          <Link
+            className="col-md-4 col-12 vehicle-bg"
+            to="Vehicles"
+            style={{ textDecoration: 'none' }}>
+            Vehicles
+          </Link>
+          <Link
+            className="col-md-4 col-12 throwable-bg"
+            to="Throwables"
+            style={{ textDecoration: 'none' }}>
+            Throwables
+          </Link>
         </div>
       </div>
     </>

@@ -7,3 +7,33 @@ header {
   padding-top: 350px;
   padding-bottom: 50px;
 }
+
+.weapon-bg {
+  background-color: black;
+  background-image: url('../images/WeaponBanner.png');
+  background-size: cover;
+  background-position: center;
+  width: 24rem;
+  height: 36rem;
+  border-radius: 10px;
+}
+
+.vehicle-bg {
+  background-color: black;
+  background-image: url('../images/VehicleBanner.png');
+  background-size: cover;
+  background-position: center;
+  width: 24rem;
+  height: 36rem;
+  border-radius: 10px;
+}
+
+.throwable-bg {
+  background-color: black;
+  background-image: url('../images/ThrowableBanner.png');
+  background-size: cover;
+  background-position: center;
+  width: 24rem;
+  height: 36rem;
+  border-radius: 10px;
+}
