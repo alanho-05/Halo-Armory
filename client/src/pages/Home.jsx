@@ -18,7 +18,7 @@ export default function Home() {
       <div className="container">
         <div className="row justify-content-center">
           <Link
-            className="d-flex align-items-end col-md-4 col-12 mb-5 mx-2 weapon-bg"
+            className="d-flex align-items-end col-md-4 col-12 mb-5 mx-2 zoom-category weapon-bg"
             to="Weapons"
             style={{ textDecoration: 'none' }}>
             <h2 className="text-white">Weapons</h2>

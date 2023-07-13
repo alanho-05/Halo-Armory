@@ -45,7 +45,7 @@ function App() {
       }
     }
     user && loadCart(user.userId);
-  }, [user, cart]);
+  }, [user]);
 
   if (isAuthorizing) return null;
 
@@ -63,7 +63,7 @@ function App() {
   }
 
   const contextValue = { user, token, handleSignIn, handleSignOut };
-  const cartContext = { cart };
+  const cartContext = { cart, setCart };
 
   return (
     <AppContext.Provider value={contextValue}>

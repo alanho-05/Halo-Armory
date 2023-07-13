@@ -40,3 +40,7 @@ header {
   height: 36rem;
   border-radius: 10px;
 }
+
+.zoom-category:hover {
+  transition: scale(1.05);
+}

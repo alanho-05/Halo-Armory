@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import AppContext from '../components/AppContext';
+import CartContext from '../components/CartContext';
 import { fetchProduct, toDollars, addToCart } from '../lib';
 import './ProductDetails.css';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -10,6 +11,7 @@ export default function ProductDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
   const { user } = useContext(AppContext);
+  const { cart, setCart } = useContext(CartContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -82,6 +84,7 @@ export default function ProductDetails() {
       return;
     }
     try {
+      console.log(cart);
       const quantity = 1;
       const shoppingCartId = user.shoppingCartId;
       await addToCart(productId, quantity, shoppingCartId);
