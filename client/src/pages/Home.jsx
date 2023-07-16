@@ -24,13 +24,13 @@ export default function Home() {
             <h2 className="text-white">Weapons</h2>
           </Link>
           <Link
-            className="d-flex align-items-end col-md-4 col-12 mb-5 mx-2 vehicle-bg"
+            className="d-flex align-items-end col-md-4 col-12 mb-5 mx-2  zoom-category vehicle-bg"
             to="Vehicles"
             style={{ textDecoration: 'none' }}>
             <h2 className="text-white">Vehicles</h2>
           </Link>
           <Link
-            className="d-flex align-items-end col-md-4 col-12 mb-5 mx-2 throwable-bg"
+            className="d-flex align-items-end col-md-4 col-12 mb-5 mx-2  zoom-category throwable-bg"
             to="Throwables"
             style={{ textDecoration: 'none' }}>
             <h2 className="text-white">Throwables</h2>

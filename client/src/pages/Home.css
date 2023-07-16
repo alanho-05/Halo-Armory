@@ -41,6 +41,10 @@ header {
   border-radius: 10px;
 }
 
+.zoom-category {
+  transition: transform 0.75s ease;
+}
+
 .zoom-category:hover {
-  transition: scale(1.05);
+  transform: scale(1.05);
 }
