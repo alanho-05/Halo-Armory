@@ -6,7 +6,9 @@ export default function Home() {
     <>
       <header className="container px-4 mt-5 text-white rounded-3 h-50">
         <h1 className="display-5 fw-bold">Welcome to the armory</h1>
-        <p class="col-md-8 lead">Your one stop shop for all your halo needs</p>
+        <p className="col-md-8 lead">
+          Your one stop shop for all your halo needs
+        </p>
       </header>
       <div className="container">
         <div className="row justify-content-center">

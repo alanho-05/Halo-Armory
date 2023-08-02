@@ -84,10 +84,13 @@ export default function ProductDetails() {
       return;
     }
     try {
-      console.log(cart);
+      console.log('cart', cart);
       const quantity = 1;
       const shoppingCartId = user.shoppingCartId;
-      await addToCart(productId, quantity, shoppingCartId);
+      const addedProduct = await addToCart(productId, quantity, shoppingCartId);
+      const updatedCart = [...cart];
+      updatedCart.push(addedProduct);
+      setCart(updatedCart);
     } catch (err) {
       console.error(err);
     }

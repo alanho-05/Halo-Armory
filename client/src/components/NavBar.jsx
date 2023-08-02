@@ -124,23 +124,11 @@ export default function NavBar() {
             Halo Armory
           </Link>
           <Link to="/cart">
-            <i className="bi bi-bag text-white fs-4 position-relative">
-              <span className="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-danger fs-65">
-                {getCartQuantity(cart)}
-              </span>
-            </i>
+            <i className="bi bi-bag text-white fs-4"></i>
           </Link>
         </div>
       </nav>
       <Outlet />
     </>
   );
-
-  function getCartQuantity(cart) {
-    let quantity = 0;
-    cart?.forEach((item) => {
-      quantity += item.quantity;
-    });
-    return quantity;
-  }
 }

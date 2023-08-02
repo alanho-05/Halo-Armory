@@ -3,10 +3,9 @@ import AppContext from './AppContext';
 import CartContext from './CartContext';
 import { toDollars } from '../lib';
 
-export default function CartItem({ product }) {
+export default function CartItem({ product, setCart }) {
   const { name, quantity, price, imageUrl, productId } = product;
   const { user } = useContext(AppContext);
-  const { setCart } = useContext(CartContext);
   const shoppingCartId = user.shoppingCartId;
 
   return (
