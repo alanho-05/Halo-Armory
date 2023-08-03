@@ -167,6 +167,23 @@ app.post('/api/cart/removeitem', async (req, res, next) => {
   }
 });
 
+app.post('/api/cart/update', async (req, res, next) => {
+  try {
+    const { productId, shoppingCartId, updatedQuantity } = req.body;
+    const sql = `
+      update "shoppingCartItem"
+         set "quantity" = $3
+       where "productId" = $1
+         and "shoppingCartId" = $2
+    `;
+    const params = [productId, shoppingCartId, updatedQuantity];
+    await db.query(sql, params);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.post('/api/checkout', async (req, res, next) => {
   try {
     const { cart } = req.body;
@@ -249,10 +266,6 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
-
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello, Project!' });
 });
 
 /**

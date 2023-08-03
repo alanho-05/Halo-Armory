@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import AppContext from './AppContext';
-import CartContext from './CartContext';
+import { ProductQuantity } from './ProductQuantity';
 import { toDollars } from '../lib';
 
 export default function CartItem({ product, setCart }) {
   const { name, quantity, price, imageUrl, productId } = product;
+  const [updatedQuantity, setUpdatedQuantity] = useState(quantity);
   const { user } = useContext(AppContext);
   const shoppingCartId = user.shoppingCartId;
 
@@ -29,6 +30,11 @@ export default function CartItem({ product, setCart }) {
           <i className="fas fa-trash" />
         </button>
       </div>
+      <ProductQuantity
+        updatedQuantity={updatedQuantity}
+        setUpdatedQuantity={setUpdatedQuantity}
+        updateItem={updateItem}
+      />
       <div className="col-lg-4 col-md-6 mb-4 mb-lg-0 d-flex align-items-center">
         <div className="d-flex mb-4" style={{ maxWidth: '300px' }}>
           <button
@@ -71,6 +77,29 @@ export default function CartItem({ product, setCart }) {
       if (!res.ok) throw new Error(`fetch Error ${res.status}`);
       setCart((prev) =>
         prev.filter((cartedItem) => cartedItem.productId !== productId)
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function updateItem() {
+    try {
+      const req = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId, shoppingCartId, updatedQuantity }),
+      };
+      const res = await fetch('/api/cart/update', req);
+      if (!res.ok) throw new Error(`fetch Error ${res.status}`);
+      setCart((prev) =>
+        prev.map((cartedItem) =>
+          cartedItem.productId === productId
+            ? { ...product, quantity: updatedQuantity }
+            : cartedItem
+        )
       );
     } catch (err) {
       console.error(err);

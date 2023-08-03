@@ -115,7 +115,7 @@ function getCartQuantity(cart) {
 function getCartTotal(cart) {
   let total = 0;
   cart?.forEach((item) => {
-    total += item.price;
+    total += item.price * item.quantity;
   });
   return toDollars(total);
 }
