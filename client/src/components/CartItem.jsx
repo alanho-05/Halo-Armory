@@ -44,10 +44,10 @@ export default function CartItem({ product, setCart }) {
           </button>
           <div className="form-outline">
             <label className="form-label">
-              Quantitiy
+              Quantity
               <input
                 min="0"
-                name="quantitiy"
+                name="quantity"
                 value={quantity}
                 type="number"
                 className="form-control"
@@ -83,21 +83,22 @@ export default function CartItem({ product, setCart }) {
     }
   }
 
-  async function updateItem() {
+  async function updateItem(quantity) {
     try {
+      console.log('quantity', quantity);
       const req = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ productId, shoppingCartId, updatedQuantity }),
+        body: JSON.stringify({ productId, shoppingCartId, quantity }),
       };
       const res = await fetch('/api/cart/update', req);
       if (!res.ok) throw new Error(`fetch Error ${res.status}`);
       setCart((prev) =>
         prev.map((cartedItem) =>
           cartedItem.productId === productId
-            ? { ...product, quantity: updatedQuantity }
+            ? { ...product, quantity: quantity }
             : cartedItem
         )
       );

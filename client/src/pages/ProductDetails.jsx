@@ -84,7 +84,6 @@ export default function ProductDetails() {
       return;
     }
     try {
-      console.log('cart', cart);
       const quantity = 1;
       const shoppingCartId = user.shoppingCartId;
       const addedProduct = await addToCart(productId, quantity, shoppingCartId);

@@ -169,14 +169,14 @@ app.post('/api/cart/removeitem', async (req, res, next) => {
 
 app.post('/api/cart/update', async (req, res, next) => {
   try {
-    const { productId, shoppingCartId, updatedQuantity } = req.body;
+    const { productId, shoppingCartId, quantity } = req.body;
     const sql = `
       update "shoppingCartItem"
          set "quantity" = $3
        where "productId" = $1
          and "shoppingCartId" = $2
     `;
-    const params = [productId, shoppingCartId, updatedQuantity];
+    const params = [productId, shoppingCartId, quantity];
     await db.query(sql, params);
     res.sendStatus(204);
   } catch (err) {

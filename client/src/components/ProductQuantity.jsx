@@ -12,9 +12,10 @@ export function ProductQuantity({
         <i
           className="fas fa-minus"
           onClick={() => {
+            console.log('updatedQuantity', updatedQuantity);
             updatedQuantity > 1 &&
               setUpdatedQuantity(Number(updatedQuantity) - 1);
-            updateItem();
+            updateItem(Number(updatedQuantity) - 1);
           }}
         />
         <span className="input-group-text border border-secondary px-3 fw-bold">
@@ -22,7 +23,10 @@ export function ProductQuantity({
         </span>
         <i
           className="fas fa-plus"
-          onClick={() => setUpdatedQuantity(Number(updatedQuantity) + 1)}
+          onClick={() => {
+            setUpdatedQuantity(Number(updatedQuantity) + 1);
+            updateItem(Number(updatedQuantity) + 1);
+          }}
         />
       </div>
     </div>
