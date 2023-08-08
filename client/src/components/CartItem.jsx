@@ -35,32 +35,6 @@ export default function CartItem({ product, setCart }) {
         setUpdatedQuantity={setUpdatedQuantity}
         updateItem={updateItem}
       />
-      <div className="col-lg-4 col-md-6 mb-4 mb-lg-0 d-flex align-items-center">
-        <div className="d-flex mb-4" style={{ maxWidth: '300px' }}>
-          <button
-            className="btn btn-primary px-3 me-2"
-            style={{ margin: '1rem 0' }}>
-            <i className="fas fa-minus" />
-          </button>
-          <div className="form-outline">
-            <label className="form-label">
-              Quantity
-              <input
-                min="0"
-                name="quantity"
-                value={quantity}
-                type="number"
-                className="form-control"
-              />
-            </label>
-          </div>
-          <button
-            className="btn btn-primary px-3 ms-2"
-            style={{ margin: '1rem 0' }}>
-            <i className="fas fa-plus" />
-          </button>
-        </div>
-      </div>
     </div>
   );
 
@@ -85,7 +59,6 @@ export default function CartItem({ product, setCart }) {
 
   async function updateItem(quantity) {
     try {
-      console.log('quantity', quantity);
       const req = {
         method: 'POST',
         headers: {

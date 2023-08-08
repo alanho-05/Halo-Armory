@@ -4,25 +4,26 @@ export function ProductQuantity({
   updateItem,
 }) {
   return (
-    <div className="border border-secondary d-inline-block p-3 position-relative rounded mt-3">
-      <div className="input-group position-absolute top-0 start-0 translate-middle-y ms-3 d-flex">
-        Quantity
-      </div>
-      <div className="input-group">
-        <i
-          className="fas fa-minus"
+    <div className="col-lg-4 col-md-6 mb-4 mb-lg-0 d-flex align-items-center">
+      <div className="d-flex mb-4" style={{ maxWidth: '300px' }}>
+        <button
+          className="btn btn-primary px-3 py-2 me-2 fas fa-minus"
+          style={{ margin: '1rem 0' }}
           onClick={() => {
-            console.log('updatedQuantity', updatedQuantity);
-            updatedQuantity > 1 &&
-              setUpdatedQuantity(Number(updatedQuantity) - 1);
+            if (updatedQuantity <= 1) return;
+            setUpdatedQuantity(Number(updatedQuantity) - 1);
             updateItem(Number(updatedQuantity) - 1);
           }}
         />
-        <span className="input-group-text border border-secondary px-3 fw-bold">
-          {updatedQuantity}
-        </span>
-        <i
-          className="fas fa-plus"
+        <div className="form-outline">
+          <span className="form-label">Quantity</span>
+          <span className="input-group-text border border-secondary px-3 fw-bold">
+            {updatedQuantity}
+          </span>
+        </div>
+        <button
+          className="btn btn-primary px-3 py-2 ms-2 fas fa-plus"
+          style={{ margin: '1rem 0' }}
           onClick={() => {
             setUpdatedQuantity(Number(updatedQuantity) + 1);
             updateItem(Number(updatedQuantity) + 1);
