@@ -1,13 +1,11 @@
 import { useContext, useState } from 'react';
 import AppContext from '../components/AppContext';
-import CartContext from './CartContext';
 import { Link, Outlet } from 'react-router-dom';
 import './NavBar.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default function NavBar() {
   const { user, handleSignOut } = useContext(AppContext);
-  const { cart } = useContext(CartContext);
 
   return (
     <>
@@ -53,14 +51,12 @@ export default function NavBar() {
                   </div>
                 </li>
                 <li className="nav-item dropdown">
-                  <a
+                  <button
                     className="nav-link dropdown-toggle text-white"
-                    href="#"
-                    role="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false">
                     Products
-                  </a>
+                  </button>
                   <ul className="dropdown-menu dropdown-menu-dark">
                     <li data-bs-dismiss="offcanvas">
                       <div className="nav-link dropdown-padding">
@@ -99,6 +95,7 @@ export default function NavBar() {
                     {user && (
                       <a
                         className="text-white"
+                        href="#"
                         style={{ textDecoration: 'none' }}
                         onClick={handleSignOut}>
                         Sign out

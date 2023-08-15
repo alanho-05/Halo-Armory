@@ -21,6 +21,12 @@ export default function AuthForm({ action, onSignIn }) {
       setError(err);
     }
   }
+
+  async function demoAccount() {
+    const result = await signUpOrIn('sign-in', 'spartan', '117');
+    onSignIn(result);
+  }
+
   const alternateActionTo = action === 'sign-up' ? '/sign-in' : '/sign-up';
   const alternateActionText =
     action === 'sign-up' ? 'Sign in instead' : 'Register now';
@@ -56,6 +62,14 @@ export default function AuthForm({ action, onSignIn }) {
             {alternateActionText}
           </Link>
         </small>
+        {action === 'sign-in' ? (
+          <small
+            className="text-muted text-decoration-underline me-auto ms-4"
+            role="button"
+            onClick={demoAccount}>
+            Use Demo Account
+          </small>
+        ) : null}
         <button type="submit" className="btn btn-primary">
           {submitButtonText}
         </button>

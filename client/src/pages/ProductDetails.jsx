@@ -12,6 +12,7 @@ export default function ProductDetails() {
   const [error, setError] = useState();
   const { user } = useContext(AppContext);
   const { cart, setCart } = useContext(CartContext);
+  const [inCart, setInCart] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,11 +24,18 @@ export default function ProductDetails() {
         setError(err);
       } finally {
         setIsLoading(false);
+        setInCart(false);
       }
     }
     setIsLoading(true);
     loadProduct(productId);
-  }, [productId]);
+  }, [productId, setInCart]);
+
+  useEffect(() => {
+    if (cart?.some((item) => item.productId === Number(productId))) {
+      setInCart(true);
+    }
+  });
 
   if (isLoading) return <div>Loading...</div>;
   if (error) {
@@ -68,9 +76,15 @@ export default function ProductDetails() {
           </div>
           <div className="row">
             <div className="col">
-              <button className="btn btn-primary" onClick={handleAddToCart}>
+              <button
+                className="btn btn-primary"
+                onClick={handleAddToCart}
+                disabled={inCart}>
                 Add to Cart
               </button>
+              <p className="ms-3">
+                <small className={inCart ? '' : 'd-none'}>Item in cart</small>
+              </p>
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ export default function CartItem({ product, setCart }) {
   const { name, quantity, price, imageUrl, productId } = product;
   const [updatedQuantity, setUpdatedQuantity] = useState(quantity);
   const { user } = useContext(AppContext);
-  const shoppingCartId = user.shoppingCartId;
+  const shoppingCartId = user?.shoppingCartId;
 
   return (
     <div className="row">
