@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import AppContext from '../components/AppContext';
 import CartContext from '../components/CartContext';
-import { fetchProduct, toDollars, addToCart } from '../lib';
+import { fetchProduct, fetchCart, toDollars, addToCart } from '../lib';
 import './ProductDetails.css';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -30,6 +30,18 @@ export default function ProductDetails() {
     setIsLoading(true);
     loadProduct(productId);
   }, [productId, setInCart]);
+
+  useEffect(() => {
+    async function loadCart(userId) {
+      try {
+        const cart = await fetchCart(userId);
+        setCart(cart);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    user && loadCart(user.userId);
+  }, [user, setCart]);
 
   useEffect(() => {
     if (cart?.some((item) => item.productId === Number(productId))) {

@@ -16,8 +16,8 @@ export default function AuthPage({ action }) {
       ? 'Please sign in to start shopping'
       : 'Register now Spartan!';
   return (
-    <div className="row pt-5 align-items-center">
-      <div className="col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-xl-4 offset-xl-4">
+    <div className="pt-5 align-items-center">
+      <div className="col-sm-10 offset-sm-1 col-md-6 offset-md-3">
         <header className="text-center">
           <h2 className="text-white mb-2">Spartan Registration</h2>
           <p className="text-white mb-4">{welcomeMessage}</p>

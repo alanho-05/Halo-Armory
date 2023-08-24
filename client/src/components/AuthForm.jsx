@@ -29,7 +29,7 @@ export default function AuthForm({ action, onSignIn }) {
 
   const alternateActionTo = action === 'sign-up' ? '/sign-in' : '/sign-up';
   const alternateActionText =
-    action === 'sign-up' ? 'Sign in instead' : 'Register now';
+    action === 'sign-up' ? 'Sign In Here' : 'Register Now';
   const submitButtonText = action === 'sign-up' ? 'Register' : 'Log In';
   return (
     <form className="w-100" onSubmit={handleSubmit}>
