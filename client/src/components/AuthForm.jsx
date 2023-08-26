@@ -74,7 +74,18 @@ export default function AuthForm({ action, onSignIn }) {
           {submitButtonText}
         </button>
       </div>
-      {error && <div style={{ color: 'red' }}>Error: {error.message}</div>}
+      {error && (
+        <div style={{ color: 'red' }}>{errorMessage(error.message)}</div>
+      )}
     </form>
   );
+}
+
+function errorMessage(err) {
+  if (err.includes('400')) {
+    return 'Username already exists.';
+  }
+  if (err.includes('401')) {
+    return 'Your password and email do not match.';
+  }
 }

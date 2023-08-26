@@ -42,4 +42,14 @@ insert into "products"
     ('Fragmentation Grenade', '4999', 'The Fragmentation grenade has a hard metal casing, with a frangible design meant to break apart into small, regular shards.', 'https://halo.wiki.gallery/images/9/91/H5G-M9.png', 'throwable', 'unsc', 'price_1NKnnxCVNkEQ1w29Q5m1k9cN'),
     ('Plasma Grenade', '5999', 'The Plasma grenade is made of smart matter programmed to stick to infantry targets.', 'https://halo.wiki.gallery/images/thumb/e/ea/H2A_Render_PlasmaGrenade.png/240px-H2A_Render_PlasmaGrenade.png', 'throwable', 'covenant', 'price_1NKnpjCVNkEQ1w295p0c8cOl'),
     ('Pulse Grenade', '5999', 'The pulse grenade forcefully detonates and forms a hazardous ionization sphere which eventually collapses, destroying nearby targets', 'https://halo.wiki.gallery/images/thumb/f/fc/H4-Z040PulseGrenade-AltRender.png/576px-H4-Z040PulseGrenade-AltRender.png', 'throwable', 'forerunner', 'price_1NKnsiCVNkEQ1w296abE2HwO'),
-    ('Splinter Grenade', '5999', 'The Splinter grenade is an area-denial grenade that can be utilized for both offensive and defensive purposes.', 'https://halo.wiki.gallery/images/thumb/0/0f/Splinter_Grenade.png/600px-Splinter_Grenade.png', 'throwable', 'forerunner', 'price_1NKntkCVNkEQ1w29E1CbFSXw')
+    ('Splinter Grenade', '5999', 'The Splinter grenade is an area-denial grenade that can be utilized for both offensive and defensive purposes.', 'https://halo.wiki.gallery/images/thumb/0/0f/Splinter_Grenade.png/600px-Splinter_Grenade.png', 'throwable', 'forerunner', 'price_1NKntkCVNkEQ1w29E1CbFSXw');
+
+insert into "users"
+  ("username", "hashedPassword")
+  values
+    ('spartan', '$argon2id$v=19$m=4096,t=3,p=1$XYua4Ltpq6aYjnlvlSLBAQ$AyfNqShBlkXSO7HVynrYZRnkU5F9lLN4jXkFjQNmtWE');
+
+insert into "shoppingCart"
+  ("userId")
+  values
+    ('1');

@@ -11,9 +11,11 @@ export async function fetchProduct(productId) {
 }
 
 export async function addToCart(productId, quantity, shoppingCartId) {
+  const storage = JSON.parse(localStorage.getItem('react-context-jwt'));
   const req = {
     method: 'POST',
     headers: {
+      Authorization: `Bearer ${storage.token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ productId, quantity, shoppingCartId }),
@@ -23,7 +25,15 @@ export async function addToCart(productId, quantity, shoppingCartId) {
 }
 
 export async function fetchCart(userId) {
-  const res = await fetch(`/api/cart/${userId}`);
+  const storage = JSON.parse(localStorage.getItem('react-context-jwt'));
+  const req = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${storage.token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+  const res = await fetch(`/api/cart/${userId}`, req);
   if (!res.ok) throw new Error(`fetch Error ${res.status}`);
   return await res.json();
 }

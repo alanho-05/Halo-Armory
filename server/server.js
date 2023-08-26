@@ -2,7 +2,6 @@ import 'dotenv/config';
 import express from 'express';
 import errorMiddleware from './lib/error-middleware.js';
 import ClientError from './lib/client-error.js';
-// eslint-disable-next-line no-unused-vars -- Remove when used
 import { authMiddleware } from './lib/authorization-middleware.js';
 import pg from 'pg';
 import argon2 from 'argon2';
@@ -114,7 +113,7 @@ app.get('/api/products/:productId', async (req, res, next) => {
   }
 });
 
-app.get('/api/cart/:userId', async (req, res, next) => {
+app.get('/api/cart/:userId', authMiddleware, async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const sql = `
@@ -133,24 +132,47 @@ app.get('/api/cart/:userId', async (req, res, next) => {
   }
 });
 
-app.post('/api/cart/addtocart', async (req, res, next) => {
+app.post('/api/cart/addtocart', authMiddleware, async (req, res, next) => {
   try {
     const { productId, quantity, shoppingCartId } = req.body;
-    const sql = `
-      insert into "shoppingCartItem" ("productId", "quantity", "shoppingCartId")
-      values ($1, $2, $3)
-      returning *
-    `;
-    const params = [productId, quantity, shoppingCartId];
-    const result = await db.query(sql, params);
-    const [cart] = result.rows;
-    res.status(201).json(cart);
+    const itemCheck = `
+      select "shoppingCartItemId"
+        from "shoppingCartItem"
+       where "productId" = $1
+         and "shoppingCartId" = $2
+      `;
+    const itemCheckParams = [productId, shoppingCartId];
+    const itemCheckResult = await db.query(itemCheck, itemCheckParams);
+    if (itemCheckResult.rows.length > 0) {
+      const quantityUpdate = `
+        update "shoppingCartItem"
+        set "quantity" = "quantity" + $1
+        where "productId" = $2
+        and "shoppingCartId" = $3
+        `;
+      const quantityUpdateSql = [quantity, productId, shoppingCartId];
+      const quantityUpdateResult = await db.query(
+        quantityUpdate,
+        quantityUpdateSql
+      );
+      res.status(201).json(quantityUpdateResult);
+    } else {
+      const sql = `
+        insert into "shoppingCartItem" ("productId", "quantity", "shoppingCartId")
+        values ($1, $2, $3)
+        returning *
+      `;
+      const params = [productId, quantity, shoppingCartId];
+      const result = await db.query(sql, params);
+      const [cart] = result.rows;
+      res.status(201).json(cart);
+    }
   } catch (err) {
     next(err);
   }
 });
 
-app.post('/api/cart/removeitem', async (req, res, next) => {
+app.post('/api/cart/removeitem', authMiddleware, async (req, res, next) => {
   try {
     const { productId, shoppingCartId } = req.body;
     const sql = `
@@ -167,7 +189,7 @@ app.post('/api/cart/removeitem', async (req, res, next) => {
   }
 });
 
-app.post('/api/cart/update', async (req, res, next) => {
+app.post('/api/cart/update', authMiddleware, async (req, res, next) => {
   try {
     const { productId, shoppingCartId, quantity } = req.body;
     const sql = `
@@ -184,7 +206,7 @@ app.post('/api/cart/update', async (req, res, next) => {
   }
 });
 
-app.post('/api/checkout', async (req, res, next) => {
+app.post('/api/checkout', authMiddleware, async (req, res, next) => {
   try {
     const { cart } = req.body;
     const lineItems = [];
@@ -198,7 +220,7 @@ app.post('/api/checkout', async (req, res, next) => {
       line_items: lineItems,
       mode: 'payment',
       success_url: 'http://localhost:3000/success',
-      cancel_url: 'http://localhost:3000/cancel',
+      cancel_url: 'http://localhost:3000/cart',
     });
     res.json({ url: session.url });
   } catch (err) {
@@ -212,13 +234,23 @@ app.post('/api/auth/sign-up', async (req, res, next) => {
     if (!username || !password) {
       throw new ClientError(400, 'username and password are required fields');
     }
+    const userCheck = `
+      select "username"
+        from "users"
+       where "username" = $1
+    `;
+    const userCheckSql = [username.toLowerCase()];
+    const userCheckResult = await db.query(userCheck, userCheckSql);
+    if (userCheckResult.rows.length > 0) {
+      throw new ClientError(400, 'Username already exists');
+    }
     const hashedPassword = await argon2.hash(password);
     const sql = `
       insert into "users" ("username", "hashedPassword")
       values ($1, $2)
       returning *
     `;
-    const params = [username, hashedPassword];
+    const params = [username.toLowerCase(), hashedPassword];
     const result = await db.query(sql, params);
     const [user] = result.rows;
     const cartSql = `
@@ -248,7 +280,7 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
         join "shoppingCart" using ("userId")
        where "username" = $1
     `;
-    const params = [username];
+    const params = [username.toLowerCase()];
     const result = await db.query(sql, params);
     const [user] = result.rows;
     if (!user) {
@@ -268,17 +300,6 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
   }
 });
 
-/**
- * Serves React's index.html if no api route matches.
- *
- * Implementation note:
- * When the final project is deployed, this Express server becomes responsible
- * for serving the React files. (In development, the Create React App server does this.)
- * When navigating in the client, if the user refreshes the page, the browser will send
- * the URL to this Express server instead of to React Router.
- * Catching everything that doesn't match a route and serving index.html allows
- * React Router to manage the routing.
- */
 app.get('*', (req, res) => res.sendFile(`${reactStaticDir}/index.html`));
 
 app.use(errorMiddleware);

@@ -40,9 +40,11 @@ export default function CartItem({ product, setCart }) {
 
   async function handleRemoveItem() {
     try {
+      const storage = JSON.parse(localStorage.getItem('react-context-jwt'));
       const req = {
         method: 'POST',
         headers: {
+          Authorization: `Bearer ${storage.token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ productId, shoppingCartId }),
@@ -59,9 +61,11 @@ export default function CartItem({ product, setCart }) {
 
   async function updateItem(quantity) {
     try {
+      const storage = JSON.parse(localStorage.getItem('react-context-jwt'));
       const req = {
         method: 'POST',
         headers: {
+          Authorization: `Bearer ${storage.token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ productId, shoppingCartId, quantity }),

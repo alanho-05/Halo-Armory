@@ -33,16 +33,12 @@ export default function Cart() {
               </div>
               <div className="card-body">
                 {cart?.map((product, index) => (
-                  <>
-                    <CartItem
-                      key={product.productId}
-                      product={product}
-                      setCart={setCart}
-                    />
+                  <div key={product.productId}>
+                    <CartItem product={product} setCart={setCart} />
                     {index + 1 === cart.length ? undefined : (
                       <hr className="my-4" />
                     )}
-                  </>
+                  </div>
                 ))}
               </div>
             </div>
@@ -87,9 +83,11 @@ export default function Cart() {
 
   async function handleCheckout() {
     try {
+      const storage = JSON.parse(localStorage.getItem('react-context-jwt'));
       const req = {
         method: 'POST',
         headers: {
+          Authorization: `Bearer ${storage.token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ cart }),
