@@ -5,7 +5,6 @@ import AppContext from './components/AppContext';
 import CartContext from './components/CartContext';
 import Home from './pages/Home';
 import NavBar from './components/NavBar';
-import NotFound from './pages/NotFound';
 import Weapons from './pages/Weapons';
 import Vehicles from './pages/Vehicles';
 import Throwables from './pages/Throwables';
@@ -79,7 +78,6 @@ function App() {
             <Route path="sign-up" element={<Auth action="sign-up" />} />
             <Route path="cart" element={<Cart />} />
             <Route path="success" element={<Success />} />
-            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </CartContext.Provider>

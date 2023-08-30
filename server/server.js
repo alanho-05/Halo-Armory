@@ -228,6 +228,22 @@ app.post('/api/checkout', authMiddleware, async (req, res, next) => {
   }
 });
 
+app.post('/api/checkout/success', authMiddleware, async (req, res, next) => {
+  try {
+    const { cartId } = req.body;
+    const sqlRemove = `
+      delete
+        from "shoppingCartItem"
+       where "shoppingCartId" = $1
+    `;
+    const removeParams = [cartId];
+    await db.query(sqlRemove, removeParams);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.post('/api/auth/sign-up', async (req, res, next) => {
   try {
     const { username, password } = req.body;

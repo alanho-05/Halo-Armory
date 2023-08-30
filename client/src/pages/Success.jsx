@@ -1,12 +1,28 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import AppContext from '../components/AppContext';
 import firework from '../lib/confetti';
-import sound from '../assets/gruntBirthday.mp3';
 
 export default function Success() {
+  const { user } = useContext(AppContext);
+  const cartId = user?.shoppingCartId;
+
   useEffect(() => {
+    async function emptyCart() {
+      const storage = JSON.parse(localStorage.getItem('react-context-jwt'));
+      const req = {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${storage.token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cartId }),
+      };
+      const res = await fetch('/api/checkout/success', req);
+      if (!res.ok) throw new Error(`fetch Error ${res.status}`);
+    }
+    emptyCart();
     firework();
-    play();
   });
 
   return (
@@ -33,8 +49,4 @@ export default function Success() {
       </div>
     </div>
   );
-}
-
-function play() {
-  new Audio(sound).play();
 }
